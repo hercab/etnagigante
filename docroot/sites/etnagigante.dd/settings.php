@@ -86,7 +86,8 @@
  * );
  * @endcode
  */
-$databases = array();
+#$databases = array();
+
 
 /**
  * Customizing database settings.
@@ -249,7 +250,9 @@ $databases = array();
  *   );
  * @endcode
  */
-$config_directories = array();
+$config_directories = array(
+	CONFIG_SYNC_DIRECTORY => '../config/sync',
+);
 
 /**
  * Settings:
@@ -295,7 +298,7 @@ $config_directories = array();
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '';
+$settings['hash_salt'] = '1247as7dsd77s4s4';
 
 /**
  * Deployment identifier.
@@ -780,9 +783,9 @@ $settings['entity_update_batch_size'] = 50;
  * Keep this code block at the end of this file to take full effect.
  */
 #
-# if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-#   include $app_root . '/' . $site_path . '/settings.local.php';
-# }
+ if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+   include $app_root . '/' . $site_path . '/settings.local.php';
+ }
 
 // <DDSETTINGS>
 // Please don't edit anything between <DDSETTINGS> tags.
