@@ -75,6 +75,11 @@
                 "type:drupal-drush"
             ]
         },
-        "enable-patching": true
+        "enable-patching": true,
+        "patches": {
+           "drupal/page_manager": {
+           "Page Manager fix page_variant": "https://www.drupal.org/files/issues/2876880-page-varient-cache-2.patch"
+           }
+         }
     }
 }
