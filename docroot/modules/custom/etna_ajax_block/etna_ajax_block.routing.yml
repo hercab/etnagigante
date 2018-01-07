@@ -1,7 +1,0 @@
-ajax_demo.news:
-  path: '/load/{method}'
-  defaults:
-    _controller: '\Drupal\etna_ajax_block\Controller\EtnaAjaxController::ajaxLoad'
-  requirements:
-    _access: 'TRUE'
-    method: 'nojs|ajax'
