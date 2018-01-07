@@ -28,7 +28,7 @@ class ProjectViewBlock extends BlockBase {
     $view = views_embed_view($view_name, $view_display);
 
     $build['project_view_block'] = [
-        '#markup'=> '<div class="sidebar-left pull-left col-xs-12 col-sm-6">@view_project</div><div class="sidebar-right sidebar-right-project col-sm-6 pull-right"></div>',
+        '#markup'=> '<div class="sidebar-left pull-left col-xs-12 col-sm-6">@view_project</div><div class="sidebar-right sidebar-right-artist col-sm-6 pull-right"></div>',
         '#attached' => array(
             'library' => array(
                 'etna_ajax_block/etna.ajax',

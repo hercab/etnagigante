@@ -28,6 +28,16 @@
             //Custom selectors
             sectionSelector: '.layout__region',
 
+            afterLoad: function(anchorLink, index){
+
+               // var loadedSection = $(this);
+
+                //using anchorLink
+                if(anchorLink == 'home'){
+                    $('header').hide();
+                }
+            },
+
             onLeave: function(index, nextIndex, direction){
                 //  $.fn.fullpage.reBuild();
                 //   var leavingSection = $(this);
@@ -50,7 +60,7 @@
     });
 
         // Hide the Header in Load Page event
-        $('header').hide();
+
 
 
 
