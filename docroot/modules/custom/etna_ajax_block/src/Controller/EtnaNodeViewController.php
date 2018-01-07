@@ -22,7 +22,7 @@ use Drupal\Core\Ajax\HtmlCommand;
 
 class EtnaNodeViewController extends NodeViewController {
 
-    public function view(EntityInterface $node, $view_mode = 'full', $langcode = NULL , Request $request ) {
+    public function viewEtna(EntityInterface $node, $view_mode = 'full', $langcode = NULL, Request $request ) {
         $build = parent::view($node, $view_mode, $langcode);
 
         $response = new AjaxResponse();
@@ -41,8 +41,6 @@ class EtnaNodeViewController extends NodeViewController {
                 'dialogClass' => 'popup-dialog-class',
                 'width' => '92%',
             );
-
-            $response->addCommand(new HtmlCommand(".sidebar-right-$dom_id", ''));
 
             $response->addCommand(new OpenModalDialogCommand($node->label(), $build, $options));
         }

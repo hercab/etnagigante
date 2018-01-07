@@ -18,7 +18,7 @@ class RouteSubscriber extends RouteSubscriberBase {
   protected function alterRoutes(RouteCollection $collection) {
     if ($route = $collection->get('entity.node.canonical')) {
       $defaults = [
-        '_controller' => '\Drupal\etna_ajax_block\Controller\EtnaNodeViewController::view',
+        '_controller' => '\Drupal\etna_ajax_block\Controller\EtnaNodeViewController::viewEtna',
 
       ];
       $route->setDefaults($defaults);

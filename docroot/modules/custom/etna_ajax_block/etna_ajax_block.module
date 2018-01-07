@@ -1,13 +1,5 @@
 <?php
 
-/**
-* Implements hook_theme()
-*/
-
-function etna_ajax_block_theme($existing, $type, $theme, $path) {
-
-}
-
 
 /**
  * Implements hook_views_pre_render().
@@ -24,4 +16,23 @@ function etna_ajax_block_block_view_news_view_block_alter(array &$build, \Drupal
 {
 
 
+}
+/**
+ * Alter the results of an embedded entity build array.
+ *
+ * This hook is called after the content has been assembled in a structured
+ * array and may be used for doing processing which requires that the complete
+ * block content structure has been built.
+ *
+ * @param array &$build
+ *   A renderable array representing the embedded entity content.
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The embedded entity object.
+ * @param array $context
+ *   The context array.
+ */
+function etna_ajax_block_entity_embed_alter(array &$build, \Drupal\Core\Entity\EntityInterface $entity, array &$context) {
+    // Remove the contextual links.
+
+    $build['entity']['#attributes']['class'] = array('use-ajax');
 }
