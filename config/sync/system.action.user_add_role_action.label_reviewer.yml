@@ -1,0 +1,14 @@
+uuid: f75ffb5b-279b-4fec-ba80-cb935354068d
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.label_reviewer
+  module:
+    - user
+id: user_add_role_action.label_reviewer
+label: 'Add the Label reviewer role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: label_reviewer

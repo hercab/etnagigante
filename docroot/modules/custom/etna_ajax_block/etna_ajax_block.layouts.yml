@@ -1,0 +1,19 @@
+etna_content_1col:
+  label: Etna One column layout
+  category: Etnagigante Layouts
+  type: page
+  template: templates/etna-content-1col
+#  icon: images/ds-1col.png
+  regions:
+    etna_home:
+      label: Home
+    etna_news:
+      label: News
+    etna_about:
+      label: About
+    etna_label:
+      label: Label
+    etna_event:
+      label: Event
+    etna_contact:
+      label: Contact

@@ -1,0 +1,50 @@
+etna_ajax_menu.news:
+  title: 'News'
+  description: 'News link'
+  menu_name: main
+  url: internal:/#news
+  options:
+      attributes:
+        class: [ icon-navegation icon-news ]
+  weight: 0
+
+etna_ajax_menu.about:
+  title: 'About'
+  description: 'About link'
+  menu_name: main
+  url: internal:/#about
+  options:
+      attributes:
+        class: [ icon-navegation icon-about ]
+  weight: 1
+
+etna_ajax_menu.label:
+  title: 'Label'
+  description: 'Label link'
+  menu_name: main
+  url: internal:/#label
+  options:
+      attributes:
+        class: [ icon-navegation icon-label ]
+  weight: 2
+
+etna_ajax_menu.event:
+  title: 'Event'
+  description: 'Event link'
+  menu_name: main
+  url: internal:/#event
+  options:
+      attributes:
+        class: [ icon-navegation icon-event ]
+  weight: 3
+
+etna_ajax_menu.contact:
+  title: 'Contact'
+  description: 'Contact link'
+  menu_name: main
+  url: internal:/#contact
+  options:
+      attributes:
+        class: [ icon-navegation icon-contact ]
+  weight: 4
+

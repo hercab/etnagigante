@@ -1,0 +1,12 @@
+demo:
+  js:
+    js/etna_ajax_behaviors.js: {}
+  css:
+    module:
+      css/demo.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+    - core/drupal.ajax
+    - core/views.ajax

@@ -1,0 +1,16 @@
+/**
+ * @file
+ * Overall specifications for Etnagigante.
+ */
+body {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+ul {
+    padding: 0;
+}

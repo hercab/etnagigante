@@ -1,0 +1,9 @@
+uuid: 4fc79dc6-e656-429f-9215-f6b344eb3a69
+langcode: en
+status: true
+dependencies: {  }
+name: tag
+vid: tag
+description: 'For tagging content'
+hierarchy: 0
+weight: 0

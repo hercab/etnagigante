@@ -1,0 +1,11 @@
+.views-col {
+    cursor: pointer;
+}
+
+.views-col :hover {
+    background-color: #eeeeee;
+}
+
+.js-view-dom-id-ajax-demo {
+    background-color: #eeeeee;
+}

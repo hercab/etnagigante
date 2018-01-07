@@ -1,0 +1,49 @@
+.menu--main {
+    padding: 5px 20px;
+}
+
+.menu--main ul.menu {
+    margin-bottom: 0;
+    margin-left: 0;
+    text-align: center;
+}
+
+.menu--main ul.menu li.menu-item {
+    display: inline-block;
+    width: 53px;
+    vertical-align: middle;
+}
+
+.icon-navegation {
+    color: #FDCB09 !important;
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    line-height: 9;
+    font-size: 12px;
+}
+
+
+.icon-news {
+    background: url("../../images/navegation_icon/news.png") no-repeat scroll center 100% / cover;
+
+}
+.icon-about {
+    background: url("../../images/navegation_icon/about.png") no-repeat scroll center 100% / cover;
+
+}
+.icon-label {
+    background: url("../../images/navegation_icon/label.png") no-repeat scroll center 100% / cover;
+
+}
+.icon-event {
+    background: url("../../images/navegation_icon/event.png") no-repeat scroll center 100% / cover;
+
+}
+.icon-contact {
+    background: url("../../images/navegation_icon/contact.png") no-repeat scroll center 100% / cover;
+
+}
+
+

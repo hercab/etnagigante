@@ -1,0 +1,77 @@
+global-styling:
+  version: VERSION
+  css:
+    base:
+      css/base/elements.css: {}
+    layout:
+      css/bootstrap.css: {}
+    component:
+      css/component/view.css: {}
+      css/component/main_navegation.css: {}
+    theme:
+      css/style.css: {}
+  js:
+    # Core.
+    js/bootstrap.js: {}
+  dependencies:
+   - core/jquery
+
+fonts:
+  css:
+    theme:
+      '//fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400,300,700|Open+Sans:300italic,400,300': { type: external, minified: true }
+
+etnagigante.breakpoints:
+  version: VERSION
+  js:
+    # Core.
+    js/etnagigante.breakpoints.js: {}
+  dependencies:
+   - core/jquery
+   - core/underscore
+
+jquery.easings:
+  version: Version
+  js:
+    js/jquery.easings/jquery.easings.min.js: {}
+  dependencies:
+   - core/jquery
+
+scrolloverflow:
+  version: VERSION
+  js:
+    js/scrolloverflow/scrolloverflow.min.js: {}
+
+
+velocity:
+  version: VERSION
+  js:
+    js/velocity/velocity.min.js: {}
+
+iscroll:
+  version: VERSION
+  js:
+    js/iscroll/build/iscroll.js: {}
+
+fullPage.js:
+  version: 2.0.8
+  css:
+    layout:
+      js/fullPage.js/jquery.fullPage.css: {}
+  js:
+    js/fullPage.js/jquery.fullPage.js: {}
+  dependencies:
+    - etnagigante/jquery.easings
+
+etnagigante.fullPage:
+  version: VERSION
+  css:
+    component:
+      css/component/fullPage.css: {}
+  js:
+    js/etnagigante.fullPage.js: {}
+  dependencies:
+   - etnagigante/iscroll
+   - etnagigante/scrolloverflow
+   - etnagigante/fullPage.js
+

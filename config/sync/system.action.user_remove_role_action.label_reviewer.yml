@@ -1,0 +1,14 @@
+uuid: bc818434-cccc-4f87-ad80-49f7882604a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.label_reviewer
+  module:
+    - user
+id: user_remove_role_action.label_reviewer
+label: 'Remove the Label reviewer role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: label_reviewer

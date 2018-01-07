@@ -1,0 +1,14 @@
+uuid: 2cf8089c-bc86-4487-a17d-71f376f15d45
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.project_reviewer
+  module:
+    - user
+id: user_remove_role_action.project_reviewer
+label: 'Remove the project reviewer role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: project_reviewer

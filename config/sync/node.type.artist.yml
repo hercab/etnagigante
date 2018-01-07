@@ -1,0 +1,17 @@
+uuid: 7e124750-18fe-47b2-9665-c291289fa0f4
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Project
+type: artist
+description: 'Content type for Artist or Musical project'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

@@ -1,0 +1,18 @@
+uuid: fccd2595-70a2-4bcd-ba51-47194aa8061e
+langcode: en
+status: true
+dependencies: {  }
+id: label_reviewer
+label: 'Label reviewer'
+weight: 12
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'delete any label content'
+  - 'edit any label content'
+  - 'use draft_published transition'
+  - 'use needs_review_draft transition'
+  - 'use needs_review_published transition'
+  - 'use published_archived transition'
+  - 'use published_published transition'
+  - 'view moderation states'
