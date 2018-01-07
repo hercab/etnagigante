@@ -1,5 +1,0 @@
-name: etna
-type: module
-description: Module for test custom code
-core: 8.x
-package: Custom

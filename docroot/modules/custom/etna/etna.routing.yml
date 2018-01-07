@@ -1,8 +1,0 @@
-
-etna.news_controller_ajaxLoad:
-  path: '/node/{nid}'
-  defaults:
-    _controller: '\Drupal\etna\Controller\NewsController::ajaxLoad'
-    _title: 'newsLoad'
-  requirements:
-    _permission: 'access content'

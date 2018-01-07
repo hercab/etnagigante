@@ -1,5 +1,0 @@
-services:
-  etna.route_subscriber:
-    class: Drupal\etna\Routing\EtnaRouteSubscriber
-    tags:
-      - { name: event_subscriber }
