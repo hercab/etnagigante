@@ -28,7 +28,7 @@ class LabelViewBlock extends BlockBase {
     $view = views_embed_view($view_name, $view_display);
 
     $build['label_view_block'] = [
-        '#markup'=> '<div class="sidebar-left pull-left col-xs-12 col-sm-6">@view_label</div><div class="sidebar-right sidebar-right-embedlabel col-sm-6 pull-right"></div>',
+        '#markup'=> '<div class="sidebar-left pull-left col-xs-12 col-sm-6">@view_label</div><div class="sidebar-right sidebar-right-label col-sm-6 pull-right"></div>',
         '#attached' => array(
             'library' => array(
                 'etna_ajax_block/etna.ajax',

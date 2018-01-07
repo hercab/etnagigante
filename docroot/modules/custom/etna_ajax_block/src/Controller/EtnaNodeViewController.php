@@ -34,7 +34,6 @@ class EtnaNodeViewController extends NodeViewController {
 
         if ($activeBreakpoints['sm'] == 'true') {
 
-
             $response->addCommand(new HtmlCommand(".sidebar-right-$dom_id", $build));
         }
         else {
