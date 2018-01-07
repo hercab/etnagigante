@@ -50,7 +50,7 @@
 
                     $dialog = $('#drupal-modal');
 
-                    if ( Drupal.dialog($dialog.get(0)) ) {
+                    if ( !$dialog.is(':hidden') ) {
 
                         Drupal.dialog($dialog.get(0)).close();
 

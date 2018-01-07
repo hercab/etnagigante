@@ -25,7 +25,6 @@
 
                 });
 
-                settings.etnagigante.triger['event'] = 'click';
             };
 
             var handleResize = function () {

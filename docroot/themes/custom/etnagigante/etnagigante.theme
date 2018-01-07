@@ -22,6 +22,7 @@ function etnagigante_preprocess_html(array &$variables) {
  * Implements hook_page_attachments_alter().
  */
 function etnagigante_page_attachments_alter(array &$page) {
+
   $breakpoints = \Drupal::service('breakpoint.manager')->getBreakpointsByGroup('Etnagigante');
   if (!empty($breakpoints)) {
     $media_queries = array();
@@ -37,9 +38,6 @@ function etnagigante_page_attachments_alter(array &$page) {
         'md' => true,
         'sm' => true,
         'xs' => true
-    );
-    $page['#attached']['drupalSettings']['etnagigante']['triger'] = array(
-      'event' => 'load'
     );
 
   }
