@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Contains etna.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function etna_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the etna module.
+    case 'help.page.etna':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Module for test custom code') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme()
+ */
+function etna_theme($existing, $type, $theme, $path) {
+  return [
+    'ajax_view_demo' => [],
+  ];
+}

@@ -1,0 +1,14 @@
+uuid: 6df020ee-0f5a-4cd5-a8d5-97cf94d150c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.project_reviewer
+  module:
+    - user
+id: user_add_role_action.project_reviewer
+label: 'Add the project reviewer role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: project_reviewer

@@ -1,0 +1,14 @@
+uuid: bdd073f0-3ac9-49bb-aef9-b2dc5eae93b4
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.label_creator
+  module:
+    - user
+id: user_add_role_action.label_creator
+label: 'Add the Label creator role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: label_creator

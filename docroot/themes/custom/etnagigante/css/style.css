@@ -1,0 +1,88 @@
+/* Estilo para el header */
+
+header {
+    position: fixed;
+    width: 100%;
+    background-color: #FDCB09;
+    z-index: 999;
+}
+footer {
+    position: fixed;
+    width: 100%;
+    background-color: #E32421;
+    z-index: 999;
+    bottom: 0;
+}
+
+.region-header .block {
+
+    display: table-cell;
+    vertical-align: middle;
+    padding: 5px;
+
+}
+.region-header #block-etnagigantetext {
+    width: 225px;
+}
+
+.site-logo {
+    width: 50px;
+    display: inline-block;
+}
+
+/* Fin del Header */
+
+/* ------------------------------------*/
+
+/* Estilo para la seccion del Home */
+
+.block-region-etna-home {
+    height: 100%;
+}
+
+/* centrando el texto de contenido del Home */
+
+.block-region-etna-home .block-block-content > .field--name-field-home-media {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.block-region-etna-home .block-system-branding-block {
+    background: url("../images/amarillo.png") no-repeat scroll center 100% / cover  transparent;
+    height: 50%;
+    text-align: center;
+}
+
+.block-region-etna-home .site-logo {
+    width: 100px;
+    position: relative;
+    top: 50%;
+
+}
+
+/* Fin de la seccion el Home */
+
+/* ------------------------------------*/
+
+.slat.group-right {
+    border-left: 1px solid #FDCB09;
+}
+.views-row.active .slat.group-right {
+    border-left: 1px solid #E32421;
+}
+
+.slat.group-left,
+.slat.group-right
+{
+    display: table-cell;
+    vertical-align: middle;
+    padding-left:  15px;
+    padding-right: 15px;
+}
+
+
+
+
+
+
+

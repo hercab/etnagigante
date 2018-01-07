@@ -1,0 +1,32 @@
+uuid: da2696e9-1ba2-4301-b6c3-5a8e9e372ae7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gallery
+    - media.type.image
+    - media.type.instagram
+    - media.type.video
+    - node.type.artist
+id: node.artist.field_gallery
+field_name: field_gallery
+entity_type: node
+bundle: artist
+label: Gallery
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+      instagram: instagram
+      video: video
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: image
+field_type: entity_reference

@@ -1,0 +1,21 @@
+uuid: b2f28565-520f-4313-9b09-a2b7e59155e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_subject
+    - node.type.news
+  module:
+    - text
+id: node.news.field_subject
+field_name: field_subject
+entity_type: node
+bundle: news
+label: Subject
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

@@ -1,0 +1,29 @@
+uuid: f764bad7-bc66-436e-af74-0b5751a79b29
+langcode: en
+status: true
+dependencies: {  }
+id: label_creator
+label: 'Label creator'
+weight: 11
+is_admin: null
+permissions:
+  - 'access contextual links'
+  - 'access image_browser entity browser pages'
+  - 'access in-place editing'
+  - 'access media_browser entity browser pages'
+  - 'access panels in-place editing'
+  - 'access toolbar'
+  - 'administer panelizer node label content'
+  - 'administer panelizer node label layout'
+  - 'change layouts in place editing'
+  - 'create label content'
+  - 'create url aliases'
+  - 'edit own label content'
+  - 'use draft_draft transition'
+  - 'use draft_needs_review transition'
+  - 'use needs_review_needs_review transition'
+  - 'use text format rich_text'
+  - 'view any unpublished content'
+  - 'view label revisions'
+  - 'view latest version'
+  - 'view own unpublished content'

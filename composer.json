@@ -25,7 +25,20 @@
         "cweagans/composer-patches": "^1.6.0",
         "acquia/lightning": "~2.2.0",
         "drupal/core": "~8.4.0",
-        "drupal/page_manager": "^4.0@beta"
+        "drupal/page_manager": "^4.0@beta",
+        "drupal/admin_toolbar": "^1.21",
+        "drupal/paragraphs": "^1.2",
+        "drupal/addtoany": "^1.8",
+        "drupal/ds": "^3.1",
+        "drupal/field_group": "3.0-beta1",
+        "drupal/social_media_links": "^2.6",
+        "drupal/linkit": "^5.0-beta6",
+        "drupal/context": "^4.0@beta",
+        "drupal/pagerer": "^1.1",
+        "drupal/slick": "^1.0",
+        "drupal/slick_views": "^1.0@RC",
+        "drupal/slick_media": "^2.0",
+        "drupal/media_entity_spotify": "^1.0"
     },
     "repositories": [
         {
@@ -79,6 +92,9 @@
         "patches": {
            "drupal/page_manager": {
            "Page Manager fix page_variant": "https://www.drupal.org/files/issues/2876880-page-varient-cache-2.patch"
+           },
+           "drupal/media_entity_spotify": {
+           "Create a port of media_entity_spotify compatible with media in core API": "https://www.drupal.org/files/issues/2912612-7.patch"
            }
          }
     }

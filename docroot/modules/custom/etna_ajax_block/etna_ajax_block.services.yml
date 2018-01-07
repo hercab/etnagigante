@@ -1,0 +1,6 @@
+services:
+  etna_ajax_block.route_subscriber:
+    class: Drupal\etna_ajax_block\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+

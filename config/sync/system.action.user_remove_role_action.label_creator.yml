@@ -1,0 +1,14 @@
+uuid: 3ac4bfee-2699-4deb-9a96-5de06332afbc
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.label_creator
+  module:
+    - user
+id: user_remove_role_action.label_creator
+label: 'Remove the Label creator role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: label_creator
