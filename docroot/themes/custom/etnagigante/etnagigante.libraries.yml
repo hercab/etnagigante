@@ -8,6 +8,7 @@ global-styling:
     component:
       css/component/view.css: {}
       css/component/main_navegation.css: {}
+      css/component/sidebar_right.css: {}
     theme:
       css/style.css: {}
   js:

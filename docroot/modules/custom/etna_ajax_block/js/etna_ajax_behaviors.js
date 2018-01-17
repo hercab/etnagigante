@@ -7,7 +7,7 @@
         attach: function (context, settings) {
             
             // Attach ajax action click event of each node teaser.
-            $('.use-ajax-etna').once('attach-links').each(
+         /*   $('.use-ajax-etna', context).once('attach-links').each(
                 function () {
 
                 var element_settings = {};
@@ -39,35 +39,63 @@
                 Drupal.ajax(element_settings);
 
 
-            });
+            }); */
 
 
             // Handle Breakpoints
 
             var handleBreakpointActivated = function (e, breakpoint) {
                 // SM breakpoint and above, initialize carousel
-                if (breakpoint === 'sm') {
 
-                    $dialog = $('#drupal-modal');
+                switch (breakpoint) {
+                    case 'sm':
 
-                    if ( !$dialog.is(':hidden') ) {
+                        console.log("sm activado");
 
-                        Drupal.dialog($dialog.get(0)).close();
+                        $dialog = $('#drupal-modal');
 
-                    }
+                        if ( !$dialog.is(':hidden') ) {
 
-                    $('.js-view-etna .views-row.active > .js-view-info').click();
+                            Drupal.dialog($dialog.get(0)).close();
+                            break;
+
+                        }
+
+                    case 'md':
+
+
+
+                        $('header.header-page .region-primary-menu').show();
+
+                        $('footer.footer-page .region-primary-menu').hide();
+
+                        break;
 
 
                 }
+
+
             };
 
             var handleBreakpointDeactivated = function (e, breakpoint) {
                 // below SM breakpoint, destroy carousel and stack the images
-                if (breakpoint === 'sm') {
+                switch (breakpoint) {
+                    case 'sm':
+                        console.log("sm desactivado");
 
-                    $('.sidebar-right > div').replaceWith();
+                        $('.sidebar-right > div').replaceWith();
+
+
+                        break;
+
+                    case 'md':
+                        $('header.header-page .region-primary-menu').hide();
+                        $('footer.footer-page .region-primary-menu').show();
+
+                        break;
+
                 }
+
             };
 
             $(window).on('breakpointActivated', handleBreakpointActivated);

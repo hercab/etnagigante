@@ -2,9 +2,18 @@
 *  Ajustes de estilo al plugin fullPage
 *
  */
+.fp-controlArrow.fp-prev {
+    border-right-color: #E32421;
+    border-width: 15.5px 22px 15.5px 0;
 
-/* Garantizar que la seccion del home tenga este en el tope, producto del header fijo*/
+}
 
-.layout__region--home{
-    padding-top: 0 !important;
+.fp-controlArrow.fp-next {
+    border-left-color: #E32421;
+    border-width: 15.5px 0  15.5px 22px;
+
+}
+
+#page-contact {
+    padding-bottom: 0 !important;
 }

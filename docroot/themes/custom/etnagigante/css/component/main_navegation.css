@@ -1,3 +1,14 @@
+
+
+.footer-page .region-primary-menu {
+    padding: 0 !important;
+}
+
+
+.region-primary-menu {
+    display: none;
+}
+
 .menu--main {
     padding: 5px 20px;
 }
@@ -10,40 +21,59 @@
 
 .menu--main ul.menu li.menu-item {
     display: inline-block;
-    width: 53px;
     vertical-align: middle;
+    padding-top: 0;
 }
 
+
 .icon-navegation {
-    color: #FDCB09 !important;
+
     display: inline-block;
-    width: 45px;
-    height: 45px;
+    width: 68px;
+    height: 56px;
     text-align: center;
-    line-height: 9;
+    line-height: 11;
     font-size: 12px;
+}
+
+.footer-page ul.menu .icon-navegation {
+    color: #FDCB09;
+}
+
+.header-page ul.menu .icon-navegation {
+    color: #E32421 !important;
 }
 
 
 .icon-news {
-    background: url("../../images/navegation_icon/news.png") no-repeat scroll center 100% / cover;
+    background: url("../../images/navegation_icon/news.png") no-repeat scroll center 100% / contain;
 
 }
 .icon-about {
-    background: url("../../images/navegation_icon/about.png") no-repeat scroll center 100% / cover;
+    background: url("../../images/navegation_icon/about.png") no-repeat scroll center 100% / contain;
 
 }
 .icon-label {
-    background: url("../../images/navegation_icon/label.png") no-repeat scroll center 100% / cover;
+    background: url("../../images/navegation_icon/label.png") no-repeat scroll center 100% / contain;
 
 }
 .icon-event {
-    background: url("../../images/navegation_icon/event.png") no-repeat scroll center 100% / cover;
+    background: url("../../images/navegation_icon/event.png") no-repeat scroll center 100% / contain;
 
 }
 .icon-contact {
-    background: url("../../images/navegation_icon/contact.png") no-repeat scroll center 100% / cover;
+    background: url("../../images/navegation_icon/contact.png") no-repeat scroll center 100% / contain;
 
+}
+
+/* Responsive */
+
+@media screen and (max-width: 394px) {
+    .footer-page ul.menu .icon-navegation {
+        width: 53px;
+        color: transparent !important;
+        line-height: 9;
+    }
 }
 
 

@@ -13,6 +13,15 @@ base theme: classy
 #Using Classy as a base theme https://www.drupal.org/theme-guide/8/classy
 
 regions:
-  content: Content
-  header: Header
+  messages: Messages
+  header_first: 'Header first'
+  primary_menu: 'Primary Menu'
+  header_third: 'Header third'
+  content: Home
+  news: News
+  about: About
+  label: Label
+  event: Event
+  contact_first: "Contact first"
+  contact_second: "Contact second"
   footer: Footer

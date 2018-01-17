@@ -56,6 +56,36 @@ function etnagigante_preprocess_page(array &$variables) {
 function etnagigante_theme_suggestions_page_alter(array &$suggestions, array $variables) {
 
 }
+/**
+ * Implements template_preprocess_region().
+ */
+
+function etnagigante_preprocess_region(array &$variables) {
+
+    if ( $variables['region'] === 'header_first' ) {
+
+        $variables['attributes']['class'][] = 'col-xs-7 col-sm-5 col-md-4 pull-left';
+
+    }
+    elseif ( $variables['region'] === 'header_third' ){
+
+        $variables['attributes']['class'][] = 'col-xs-5 col-md-2 pull-right';
+    }
+    elseif ( $variables['region'] === 'primary_menu' ){
+
+        $variables['attributes']['class'][] = 'col-md-6';
+    }
+    elseif ( $variables['region'] == 'contact_first' ) {
+
+        $variables['attributes']['class'][] = 'col-xs-10 center-block';
+    }
+    elseif ( $variables['region'] == 'contact_second' ){
+
+        $variables['attributes']['class'][] = 'col-xs-10 col-sm-6 center-block';
+    }
+
+
+}
 
 /**
  * Implements hook_theme_suggestions_node_alter().
@@ -72,6 +102,11 @@ function etnagigante_theme_suggestions_node_alter(array &$suggestions, array $va
  * Implements hook_preprocess_HOOK() for Block document templates.
  */
 function etnagigante_preprocess_block(array &$variables) {
+  if ($variables['plugin_id'] === 'system_branding_block' && isset($variables['attributes']['id'])) {
+
+    $variables['logo_text'] = theme_get_setting('logo_text');
+
+  }
 
 }
 
@@ -149,6 +184,55 @@ function etnagigante_theme_suggestions_details_alter(array &$suggestions, array 
 /**
  * Implements hook_preprocess_menu_local_task().
  */
-function etnagigante_preprocess_menu_local_task(array &$variables) {
+function etnagigante_preprocess_menu_local_task(array &$variables)
+{
   //$variables['element']['#link']['url']->setOption('attributes', ['class'=>'rounded']);
 }
+
+  /**
+   * Implements hook_preprocess_link().
+   */
+
+function etnagigante_preprocess_links(array &$variables){
+
+  if ($variables['theme_hook_original'] === 'links__language_block') {
+
+    $variables['links']['en']['link']['#title'] = "eng";
+    $variables['links']['it']['link']['#title'] = "ita";
+    $variables['links']['es']['link']['#title'] = "esp";
+
+  }
+
+}
+
+function etnagigante_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface &$form_state, $form_id = NULL) {
+  // Work-around for a core bug affecting admin themes. See issue #943212.
+  if (isset($form_id)) {
+    return;
+  }
+
+  $form['logo_text'] = array(
+      '#type'          => 'textfield',
+      '#title'         => t('Path to custom logo text'),
+      '#default_value' => theme_get_setting('logo_text'),
+      '#description'   => t("Url to logo text branding"),
+  );
+
+}
+
+/* Implement THEME_preprocess_HOOK() */
+
+function etnagigante_preprocess_social_media_links_platforms(&$variables){
+
+    $variables['attributes']['class'][] = 'nav navbar-nav pull-right';
+
+    if (array_key_exists( 'contact', $variables['platforms'] )) {
+
+       $variables['platforms']['contact']['attributes']->addClass('use-ajax');
+       $variables['platforms']['contact']['attributes']->setAttribute('data-dialog-type', 'modal');
+
+    }
+
+}
+
+

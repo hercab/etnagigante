@@ -1,6 +1,12 @@
 .views-row {
     margin-bottom: 5px;
+    cursor: pointer;
 }
+
+.views-row :hover {
+    background-color: #eeeeee;
+}
+
 
 .view-header {
     margin-bottom: 25px;

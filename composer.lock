@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f26c916fb109d9eaa0502347fa3ba456",
+    "content-hash": "f3c1f9785524da24ba9f64005a2d2bb5",
     "packages": [
         {
             "name": "acquia/lightning",
@@ -224,7 +224,7 @@
             "version": "v2.3.4",
             "source": {
                 "type": "git",
-                "url": "git@github.com:fengyuanchen/cropper.git",
+                "url": "https://github.com/fengyuanchen/cropper.git",
                 "reference": "30c58b29ee21010e17e58ebab165fbd84285c685"
             },
             "dist": {
@@ -243,7 +243,7 @@
             "version": "v5.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/enyo/dropzone.git",
+                "url": "git@github.com:enyo/dropzone.git",
                 "reference": "7d0792d1346d83a8b0c0d2919121bdd2b8e7fee4"
             },
             "dist": {
@@ -253,6 +253,47 @@
                 "shasum": null
             },
             "type": "bower-asset"
+        },
+        {
+            "name": "bower-asset/fullpage.js",
+            "version": "2.9.5",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:alvarotrigo/fullPage.js.git",
+                "reference": "fc34fb061ea7e03dac93a45c0673b2307ee6a76d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alvarotrigo/fullPage.js/zipball/fc34fb061ea7e03dac93a45c0673b2307ee6a76d",
+                "reference": "fc34fb061ea7e03dac93a45c0673b2307ee6a76d",
+                "shasum": null
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.6.0"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "bower-asset/jquery",
+            "version": "3.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jquery/jquery-dist.git",
+                "reference": "77d2a51d0520d2ee44173afdf4e40a9201f5964e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/77d2a51d0520d2ee44173afdf4e40a9201f5964e",
+                "reference": "77d2a51d0520d2ee44173afdf4e40a9201f5964e",
+                "shasum": null
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "caxy/php-htmldiff",
@@ -1407,6 +1448,100 @@
             }
         },
         {
+            "name": "drupal/contact_ajax",
+            "version": "1.4.0-beta4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/contact_ajax",
+                "reference": "8.x-1.4-beta4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/contact_ajax-8.x-1.4-beta4.zip",
+                "reference": "8.x-1.4-beta4",
+                "shasum": "f481612797e9f011305ad226dfb1aa83718717b7"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.4-beta4",
+                    "datestamp": "1480410480",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "ziomizar",
+                    "homepage": "https://www.drupal.org/user/814348"
+                }
+            ],
+            "description": "Submit contact form using ajax.",
+            "homepage": "https://www.drupal.org/project/contact_ajax",
+            "support": {
+                "source": "http://cgit.drupalcode.org/contact_ajax"
+            }
+        },
+        {
+            "name": "drupal/contact_block",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/contact_block",
+                "reference": "8.x-1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/contact_block-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "0e10326e33c02f821c0f20885a3662f8c3e34c64"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.4",
+                    "datestamp": "1493036943",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Sutharsan",
+                    "homepage": "https://www.drupal.org/user/73854"
+                }
+            ],
+            "description": "Provides blocks for Contact form module.",
+            "homepage": "https://www.drupal.org/project/contact_block",
+            "support": {
+                "source": "http://cgit.drupalcode.org/contact_block"
+            }
+        },
+        {
             "name": "drupal/contact_storage",
             "version": "1.0.0-beta9",
             "source": {
@@ -2314,6 +2449,48 @@
             }
         },
         {
+            "name": "drupal/empty_front_page",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/empty_front_page",
+                "reference": "e4b5065eeaf69e98b587306d2bb504f9df83a151"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1414811628",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "pfournier",
+                    "homepage": "https://www.drupal.org/user/160468"
+                }
+            ],
+            "description": "Remove default content from the front page.",
+            "homepage": "https://www.drupal.org/project/empty_front_page",
+            "support": {
+                "source": "http://cgit.drupalcode.org/empty_front_page"
+            },
+            "time": "2014-10-31T23:40:10+00:00"
+        },
+        {
             "name": "drupal/entity",
             "version": "1.0.0-beta1",
             "source": {
@@ -2998,6 +3175,55 @@
             }
         },
         {
+            "name": "drupal/lightning_media_spotify",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/lightning_media_spotify",
+                "reference": "8.x-1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/lightning_media_spotify-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "20f955a9577c1391efa3a409fa06d6f4010abb20"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/media_entity_spotify": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0",
+                    "datestamp": "1492597442",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "dakku",
+                    "homepage": "https://www.drupal.org/user/97634"
+                }
+            ],
+            "description": "Integrate Spotify into Lightning Media.",
+            "homepage": "https://www.drupal.org/project/lightning_media_spotify",
+            "support": {
+                "source": "http://cgit.drupalcode.org/lightning_media_spotify",
+                "error": "Invalid dependency: \"lightning_media\" is an unknown drupal 8 package name"
+            }
+        },
+        {
             "name": "drupal/linkit",
             "version": "5.0.0-beta6",
             "source": {
@@ -3376,8 +3602,7 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
-                },
-                "patches_applied": []
+                }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
@@ -4375,6 +4600,73 @@
             "homepage": "https://www.drupal.org/project/simple_oauth",
             "support": {
                 "source": "http://cgit.drupalcode.org/simple_oauth"
+            }
+        },
+        {
+            "name": "drupal/simplenews",
+            "version": "1.0.0-alpha3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/simplenews",
+                "reference": "8.x-1.0-alpha3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/simplenews-8.x-1.0-alpha3.zip",
+                "reference": "8.x-1.0-alpha3",
+                "shasum": "1bf5c204d26ade0e56b15426018bc18d3acb0dab"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "require-dev": {
+                "drupal/monitoring": "*",
+                "drupal/simplenews_scheduler": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha3",
+                    "datestamp": "1487059683",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "AlexisWilke",
+                    "homepage": "https://www.drupal.org/user/356197"
+                },
+                {
+                    "name": "Berdir",
+                    "homepage": "https://www.drupal.org/user/214652"
+                },
+                {
+                    "name": "Simon Georges",
+                    "homepage": "https://www.drupal.org/user/172312"
+                },
+                {
+                    "name": "Sutharsan",
+                    "homepage": "https://www.drupal.org/user/73854"
+                },
+                {
+                    "name": "miro_dietiker",
+                    "homepage": "https://www.drupal.org/user/227761"
+                }
+            ],
+            "description": "Send newsletters to subscribed email addresses. For uninstall go to Configuration > Web services > Simplenews > Settings and hit \"Prepare uninstall\".",
+            "homepage": "https://www.drupal.org/project/simplenews",
+            "support": {
+                "source": "http://cgit.drupalcode.org/simplenews"
             }
         },
         {
@@ -11939,7 +12231,11 @@
     "stability-flags": {
         "drupal/page_manager": 10,
         "drupal/context": 10,
-        "drupal/slick_views": 5
+        "drupal/slick_views": 5,
+        "drupal/empty_front_page": 20,
+        "drupal/contact_ajax": 10,
+        "drupal/contact_storage": 10,
+        "drupal/simplenews": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,

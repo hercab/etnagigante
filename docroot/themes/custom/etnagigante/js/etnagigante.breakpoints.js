@@ -12,8 +12,7 @@
 
             var handleWindowLoad = function () {
 
-                // add class active to first element
-                $('.js-view-etna .views-row:first-child').addClass('active');
+
 
                 Object.keys(breakpoints).forEach(function (bp) {
                     if (window.matchMedia(breakpoints[bp]).matches) {
@@ -21,6 +20,7 @@
                         $.event.trigger('breakpointActivated', bp);
                     } else {
                         settings.etnagigante.activeBreakpoints[bp] = false;
+                        $.event.trigger('breakpointDeactivated', bp);
                     }
 
                 });
@@ -40,8 +40,9 @@
                         // if it was active, mark it as not active
                         if (settings.etnagigante.activeBreakpoints[bp] === true) {
                             settings.etnagigante.activeBreakpoints[bp] = false;
-                            $.event.trigger('breakpointDeactivated', bp);
+
                         }
+                        $.event.trigger('breakpointDeactivated', bp);
                     }
                 });
 

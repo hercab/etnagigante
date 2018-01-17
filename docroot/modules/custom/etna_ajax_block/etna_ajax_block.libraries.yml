@@ -1,9 +1,6 @@
 etna.ajax:
   js:
     js/etna_ajax_behaviors.js: {}
-  css:
-    component:
-      css/etna_ajax_block.css: {}
   dependencies:
     - core/drupal
     - core/jquery

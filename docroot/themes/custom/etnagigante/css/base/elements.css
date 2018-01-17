@@ -4,6 +4,7 @@
  */
 body {
     font-family: 'Roboto', sans-serif !important;
+
 }
 
 img {
@@ -14,3 +15,18 @@ img {
 ul {
     padding: 0;
 }
+
+body a {
+    color: #E32421;
+}
+
+body a:hover, a:focus {
+    color: #E32421;
+
+}
+
+/*
+article.embedded-entity a {
+    color: #000000;
+    font-weight: bold;
+}*/

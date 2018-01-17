@@ -10,6 +10,7 @@ namespace Drupal\etna_ajax_block\Controller;
 
 use Drupal\node\Controller\NodeViewController;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\block\Entity\Block;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
@@ -34,12 +35,11 @@ class EtnaNodeViewController extends NodeViewController {
 
         if ($activeBreakpoints['sm'] == 'true') {
 
-            $response->addCommand(new HtmlCommand(".sidebar-right-$dom_id", $build));
+            $response->addCommand(new HtmlCommand(".sidebar-$dom_id", $build));
         }
         else {
             $options = array(
                 'dialogClass' => 'popup-dialog-class',
-                'width' => '92%',
             );
 
             $response->addCommand(new OpenModalDialogCommand($node->label(), $build, $options));

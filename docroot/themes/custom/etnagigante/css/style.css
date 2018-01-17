@@ -5,64 +5,157 @@ header {
     width: 100%;
     background-color: #FDCB09;
     z-index: 999;
+    padding: 10px 0;
 }
-footer {
+
+.footer-page {
     position: fixed;
     width: 100%;
     background-color: #E32421;
     z-index: 999;
     bottom: 0;
 }
+footer.copyright {
 
-.region-header .block {
-
-    display: table-cell;
-    vertical-align: middle;
-    padding: 5px;
-
+    width: 100%;
+    background-color: #FDCB09;
+    text-align: center;
+    padding: 5px 0;
 }
-.region-header #block-etnagigantetext {
-    width: 225px;
-}
+
 
 .site-logo {
-    width: 50px;
+    max-width: 200px;
+}
+
+.region-header-first,
+.region-header-second,
+.region-header-third {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#block-languageswitcher {
+    width: 100%;
+    text-align: right;
+    padding-right: 10px;
+}
+.language-link {
+    padding: 5px;
+    color: #E32421;
+}
+.language-link:hover, .language-link:focus {
+    color: #E32421;
+}
+
+#block-languageswitcher li {
+
     display: inline-block;
 }
 
+#block-socialmedialinks {
+
+    clear: both;
+}
+#block-socialmedialinks-2 {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    z-index: 399;
+    display: inline-block;
+}
+
+.block-social-media-links li {
+    /*background-color: #E32421;   //BORRARRRRRRRRRRRRRRR*/
+}
+
+.social-media-links--platforms {
+    font-size: 10px;
+}
+#block-socialmedialinks .social-media-links--platforms li:last-child {
+    padding-right: 0;
+
+}
+#block-socialmedialinks .social-media-links--platforms li:last-child > a {
+    padding-right: 0;
+
+}
+
+.navbar-nav > li > a {
+
+    padding: 5px;
+    color: #E32421;
+}
+
+.navbar-nav > li > a:hover, .navbar-nav > li > a:focus {
+
+    background-color: #000000;
+}
+
+.navbar-toggle {
+
+    padding: 0;
+}
+
+.navbar-toggle .icon-bar {
+    background-color: #000000;
+
+}
+.navbar-toggle.collapsed .icon-bar {
+    background-color: #E32421;
+}
 /* Fin del Header */
 
 /* ------------------------------------*/
 
 /* Estilo para la seccion del Home */
 
-.block-region-etna-home {
-    height: 100%;
-}
-
 /* centrando el texto de contenido del Home */
 
-.block-region-etna-home .block-block-content > .field--name-field-home-media {
+#block-sitebranding-2 {
+    position: absolute;
+    width: 100%;
+    background: url("../images/amarillo.png") no-repeat scroll center 100% / cover transparent;
     text-align: center;
-    margin-top: 50px;
+    top: 0;
+    height: 60%;
+    display: table-cell;
+    vertical-align: middle;
 }
 
-.block-region-etna-home .block-system-branding-block {
-    background: url("../images/amarillo.png") no-repeat scroll center 100% / cover  transparent;
-    height: 50%;
-    text-align: center;
+#block-etnagigante-branding .logo {
+    display: table-cell;
+    vertical-align: middle;
 }
 
-.block-region-etna-home .site-logo {
-    width: 100px;
+#block-etnagigante-branding .logo-text {
+    padding-left: 5px;
+}
+#block-sitebranding-2 .site-logo {
+
+    display: inline-block;
     position: relative;
     top: 50%;
+    max-width: 125px;
 
 }
+
+#block-etnagigante-content {
+    position: absolute;
+    width: 100%;
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+    vertical-align: middle;
+    text-align: center;
+    top: 70%;
+}
+
 
 /* Fin de la seccion el Home */
 
 /* ------------------------------------*/
+
 
 .slat.group-right {
     border-left: 1px solid #FDCB09;
@@ -79,6 +172,61 @@ footer {
     padding-left:  15px;
     padding-right: 15px;
 }
+
+
+/**
+*Estilo para el modal dialog
+*
+**/
+
+.popup-dialog-class {
+
+}
+
+/* Fin del Modal */
+
+
+
+/* *Estilo para la pagina de contactos */
+
+.region-contact-first, .region-contact-second {
+    float: none;
+    text-align: center;
+}
+
+#block-etnagigantesrl h2 {
+    font-size: 20px;
+
+}
+
+.block-contact-block label {
+    display: block;
+    text-align: left;
+
+}
+.block-contact-block input {
+    width: 100%;
+
+}
+
+.block-contact-block input#edit-submit {
+    width: 110px;
+    height: 50px;
+    background-color: #E32421;
+    border: none;
+    color: #FDCB09;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#page-credits {
+    padding-top: 0 !important;
+}
+
+
+/* Fin del estilo de contactos */
+
 
 
 

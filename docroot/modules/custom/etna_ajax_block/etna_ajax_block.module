@@ -2,6 +2,20 @@
 
 
 /**
+ * Implements hook_page_attachments_alter().
+ */
+
+function etna_ajax_block_page_attachments_alter(array &$attachments) {
+
+    // Conditionally add an asset.
+    if (!in_array('etna_ajax_block/etna.ajax', $attachments['#attached']['library'])) {
+        $attachments['#attached']['library'][] = "etna_ajax_block/etna.ajax";
+    }
+
+}
+
+
+/**
  * Implements hook_views_pre_render().
  */
 function etna_ajax_block_views_pre_render($view)

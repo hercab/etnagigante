@@ -38,7 +38,14 @@
         "drupal/slick": "^1.0",
         "drupal/slick_views": "^1.0@RC",
         "drupal/slick_media": "^2.0",
-        "drupal/media_entity_spotify": "^1.0"
+        "drupal/media_entity_spotify": "^1.0",
+        "drupal/empty_front_page": "1.x-dev",
+        "bower-asset/fullpage.js": "^2.9",
+        "drupal/contact_block": "^1.4",
+        "drupal/contact_ajax": "^1.4@beta",
+        "drupal/contact_storage": "^1.0@beta",
+        "drupal/lightning_media_spotify": "^1.0",
+        "drupal/simplenews": "^1.0@alpha"
     },
     "repositories": [
         {
@@ -92,9 +99,6 @@
         "patches": {
            "drupal/page_manager": {
            "Page Manager fix page_variant": "https://www.drupal.org/files/issues/2876880-page-varient-cache-2.patch"
-           },
-           "drupal/media_entity_spotify": {
-           "Create a port of media_entity_spotify compatible with media in core API": "https://www.drupal.org/files/issues/2912612-7.patch"
            }
          }
     }
