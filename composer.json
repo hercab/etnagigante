@@ -45,7 +45,8 @@
         "drupal/contact_ajax": "^1.4@beta",
         "drupal/contact_storage": "^1.0@beta",
         "drupal/lightning_media_spotify": "^1.0",
-        "drupal/simplenews": "^1.0@alpha"
+        "drupal/simplenews": "^1.0@alpha",
+        "bower-asset/iscroll": "^5.2"
     },
     "repositories": [
         {

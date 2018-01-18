@@ -31,48 +31,36 @@ etnagigante.breakpoints:
    - core/jquery
    - core/underscore
 
-jquery.easings:
-  version: Version
-  js:
-    js/jquery.easings/jquery.easings.min.js: {}
-  dependencies:
-   - core/jquery
 
 scrolloverflow:
   version: VERSION
   js:
-    js/scrolloverflow/scrolloverflow.min.js: {}
+    /libraries/fullpage.js/vendors/scrolloverflow.js: {}
+  dependencies:
+   - core/jquery
 
 
-velocity:
+fullpage.js:
   version: VERSION
-  js:
-    js/velocity/velocity.min.js: {}
-
-iscroll:
-  version: VERSION
-  js:
-    js/iscroll/build/iscroll.js: {}
-
-fullPage.js:
-  version: 2.0.8
   css:
     layout:
-      js/fullPage.js/jquery.fullPage.css: {}
+      /libraries/fullpage.js/dist/jquery.fullpage.min.css: { minified: true }
   js:
-    js/fullPage.js/jquery.fullPage.js: {}
+    /libraries/fullpage.js/dist/jquery.fullpage.min.js: { minified: true }
   dependencies:
-    - etnagigante/jquery.easings
+   - core/jquery
+   - etnagigante/scrolloverflow
 
-etnagigante.fullPage:
+
+etnagigante.fullpage:
   version: VERSION
   css:
     component:
-      css/component/fullPage.css: {}
+      css/component/fullpage.css: {}
   js:
-    js/etnagigante.fullPage.js: {}
+    js/etnagigante.fullpage.js: {}
   dependencies:
-   - etnagigante/iscroll
-   - etnagigante/scrolloverflow
-   - etnagigante/fullPage.js
+   - etnagigante/fullpage.js
+
+
 

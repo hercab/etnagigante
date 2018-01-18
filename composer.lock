@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3c1f9785524da24ba9f64005a2d2bb5",
+    "content-hash": "bd5ff07eece52c9bfa2faed06d0f4352",
     "packages": [
         {
             "name": "acquia/lightning",
@@ -275,6 +275,22 @@
             "license": [
                 "MIT"
             ]
+        },
+        {
+            "name": "bower-asset/iscroll",
+            "version": "v5.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cubiq/iscroll.git",
+                "reference": "75c546d5cf53a3bc049429eac809a8764f717ea0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cubiq/iscroll/zipball/75c546d5cf53a3bc049429eac809a8764f717ea0",
+                "reference": "75c546d5cf53a3bc049429eac809a8764f717ea0",
+                "shasum": null
+            },
+            "type": "bower-asset"
         },
         {
             "name": "bower-asset/jquery",
