@@ -9,6 +9,9 @@ global-styling:
       css/component/view.css: {}
       css/component/main_navegation.css: {}
       css/component/sidebar_right.css: {}
+      css/component/event.css: {}
+      css/component/news.css: {}
+      css/component/project.css: {}
     theme:
       css/style.css: {}
   js:

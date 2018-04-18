@@ -1,0 +1,23 @@
+
+
+.node--type-event.node--view-mode-teaser
+{
+    padding: 10px;
+}
+.node--type-event.node--view-mode-full .field.field__item
+{
+    margin-bottom: 10px;
+
+}
+
+.node--type-event.node--view-mode-teaser .field--name-field-date-event
+{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.node--type-event.node--view-mode-teaser .field--name-node-title
+{
+    font-weight: bold;
+    font-size: 16px;
+}

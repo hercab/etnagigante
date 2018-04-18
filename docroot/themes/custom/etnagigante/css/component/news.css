@@ -1,0 +1,18 @@
+
+
+.node--type-news.node--view-mode-teaser
+{
+    padding: 10px;
+}
+
+.node--type-news.node--view-mode-teaser .field--name-node-post-date
+{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.node--type-news.node--view-mode-teaser .field--name-node-title
+{
+    font-weight: bold;
+    font-size: 16px;
+}

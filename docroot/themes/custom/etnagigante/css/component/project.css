@@ -1,0 +1,9 @@
+/* Estilo para los proyectos */
+
+
+.node--type-artist.node--view-mode-teaser
+{
+    padding: 10px;
+    text-align: center;
+
+}

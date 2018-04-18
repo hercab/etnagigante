@@ -6,6 +6,10 @@
     'use strict';
 
     $(document).ready(function() {
+
+        $('.js-view-etna .views-row:first-child').addClass('active');
+
+
         $('#fullpage').fullpage({
 
             //navegation
@@ -63,7 +67,7 @@
 
             afterResize: function(){
 
-                console.log('afterResize call')
+              //  console.log('afterResize call')
 
                 if ( drupalSettings.etnagigante.activeBreakpoints['sm'] == true ) {
 
@@ -83,34 +87,31 @@
 
                 console.log("afterRender: The resulting DOM structure is ready");
 
-                $('.use-ajax-etna').once('attach-links').each( attachLinks);
+                $('.use-ajax-etna').once('attach-links').each( attachLinks );
 
                 if ( drupalSettings.etnagigante.activeBreakpoints['sm'] == true ) {
                     // add class active to first element when DOM load complete
-                    $('.js-view-etna .views-row:first-child').addClass('active').children('.use-ajax-etna').click();
+                    $('.js-view-etna .views-row.active').once('click-active').children('.use-ajax-etna').click();
                 }
-
-
-
-            },
-            afterReBuild: function () {
-                console.log('afterRebuild call');
-                $('.use-ajax-etna').once('attach-links').each( attachLinks);
             }
+            /*afterReBuild: function () {
+               // console.log('afterRebuild call');
+              // $('.use-ajax-etna').once('attach-links').each( attachLinks);
+            } */
     });
 
 
     });
 
-    // When Ajax complete rebuild fullpage
+   // When Ajax complete rebuild fullpage
 
     $(document).ajaxComplete(
 
-       function(event, xhr, settings) {
+      function(event, xhr, settings) {
 
-           console.log('ajax complete');
+           //console.log('ajax complete');
 
-           $.fn.fullpage.reBuild();
+          $.fn.fullpage.reBuild();
 
        }
     );
@@ -128,6 +129,8 @@
     });
 
     var attachLinks = function () {
+
+       // console.log('before attach link');
 
         var element_settings = {};
 
@@ -149,6 +152,8 @@
         element_settings.submit = data;
         element_settings.beforeSend = function beforeSend(request, options){
 
+
+
             $(this.element).parent().addClass('active');
             var padre = $(this.element).parent();
             padre.siblings().removeClass('active');
@@ -156,6 +161,7 @@
         };
 
         Drupal.ajax(element_settings);
+
 
 
     }

@@ -161,10 +161,10 @@ footer.copyright {
 
 
 .slat.group-right {
-    border-left: 1px solid #FDCB09;
+    border-left: 2px solid #FDCB09;
 }
 .views-row.active .slat.group-right {
-    border-left: 1px solid #E32421;
+    border-left: 2px solid #E32421;
 }
 
 .slat.group-left,
@@ -172,8 +172,7 @@ footer.copyright {
 {
     display: table-cell;
     vertical-align: middle;
-    padding-left:  15px;
-    padding-right: 15px;
+    padding: 5px 15px;
 }
 
 

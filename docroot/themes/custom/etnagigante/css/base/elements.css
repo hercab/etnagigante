@@ -2,9 +2,29 @@
  * @file
  * Overall specifications for Etnagigante.
  */
+
+/* FONT PATH
+ * -------------------------- */
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../font/Roboto/Roboto-Condensed.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Monserrat';
+    src: url('../../font/Monserrat/Montserrat-Regular.otf') format('otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     font-family: 'Roboto', sans-serif !important;
 
+}
+.node
+{
+    font-family: 'Monserrat', sans-serif !important;
 }
 
 img {
@@ -24,9 +44,3 @@ body a:hover, a:focus {
     color: #E32421;
 
 }
-
-/*
-article.embedded-entity a {
-    color: #000000;
-    font-weight: bold;
-}*/

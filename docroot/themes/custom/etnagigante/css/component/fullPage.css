@@ -2,6 +2,9 @@
 *  Ajustes de estilo al plugin fullPage
 *
  */
+#fullpage {
+    background-color: #F5F5DC;
+}
 .fp-controlArrow.fp-prev {
     border-right-color: #E32421;
     border-width: 15.5px 22px 15.5px 0;
@@ -16,4 +19,21 @@
 
 #page-contact {
     padding-bottom: 0 !important;
+}
+
+.fp-scroller{
+    /*height: 100%;*/
+}
+
+.section {
+    background-color: #eae9d0;
+    height: 90%;
+    margin-left: 15px;
+    border-radius: 10px;
+}
+
+.section.section-home{
+    background-color: transparent;
+    height: auto;
+    margin-left: 0;
 }
