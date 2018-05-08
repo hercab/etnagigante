@@ -1,0 +1,754 @@
+diff --git a/README.md b/README.md
+index 8197b2d..788e887 100644
+--- a/README.md
++++ b/README.md
+@@ -1,14 +1,12 @@
+ # Media Entity Spotify
+-Spotify integration for [Media Entity](https://www.drupal.org/project/media_entity) module.
++Spotify integration for core Media module.
+ 
+ ## Installation
+ 
+-1. Enable the media_entity and media_entity_spotify module.
+-2. Go to `/admin/structure/media` and click 'Add media bundle' to create a new bundle.
++1. Enable the media and media_entity_spotify module.
++2. Go to `/admin/structure/media` and click 'Add media type' to create a new type.
+ 3. Under **Type provider** select Spotify.
+-4. Save the bundle.
+-5. Add a field to the bundle to store the Spotify url.
+-6. Edit the bundle again, and select the field created above as the **Spotify URL source field**.
++4. Save the type.
+ 
+ ## Configuration
+ 
+diff --git a/config/schema/media_entity_spotify.schema.yml b/config/schema/media_entity_spotify.schema.yml
+index 092d9b0..84a973a 100644
+--- a/config/schema/media_entity_spotify.schema.yml
++++ b/config/schema/media_entity_spotify.schema.yml
+@@ -6,8 +6,8 @@ media_entity_spotify.settings:
+       type: string
+       label: 'Destination for thumbnails'
+ 
+-media_entity.bundle.type.spotify:
+-  type: mapping
++media.source.spotify:
++  type: media.source.field_aware
+   label: 'Spotify type configuration'
+   mapping:
+     source_url_field:
+diff --git a/media_entity_spotify.info.yml b/media_entity_spotify.info.yml
+index 95ef1cc..4be0265 100644
+--- a/media_entity_spotify.info.yml
++++ b/media_entity_spotify.info.yml
+@@ -4,4 +4,4 @@ description: Media entity Spotify provider.
+ core: 8.x
+ package: Media
+ dependencies:
+-  - media_entity
++  - drupal:media (>= 8.4)
+diff --git a/media_entity_spotify.install b/media_entity_spotify.install
+index b9523a6..b33ed2d 100644
+--- a/media_entity_spotify.install
++++ b/media_entity_spotify.install
+@@ -10,6 +10,47 @@
+  */
+ function media_entity_spotify_install() {
+   $source = drupal_get_path('module', 'media_entity_spotify') . '/images/icons';
+-  $destination = \Drupal::config('media_entity.settings')->get('icon_base');
+-  media_entity_copy_icons($source, $destination);
++  $destination = \Drupal::config('media.settings')->get('icon_base_uri');
++  file_prepare_directory($destination, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
++
++  $files = file_scan_directory($source, '/.*\.(svg|png|jpg|jpeg|gif)$/');
++  foreach ($files as $file) {
++    // When reinstalling we don't want to copy the icons when
++    // they already exist. The icons could be replaced (by a contrib module or
++    // manually), so we don't want to replace the existing files. Removing the
++    // files when we uninstall could also be a problem if the files are
++    // referenced somewhere else. Since showing an error that it was not
++    // possible to copy the files is also confusing, we silently do nothing.
++    if (!file_exists($destination . DIRECTORY_SEPARATOR . $file->filename)) {
++      file_unmanaged_copy($file->uri, $destination, FILE_EXISTS_ERROR);
++    }
++  }
++}
++
++/**
++ * Implements hook_requirements().
++ */
++function media_entity_spotify_requirements($phase) {
++  $requirements = [];
++  if ($phase == 'install') {
++    $destination = 'public://media-icons/generic';
++    file_prepare_directory($destination, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
++    $is_writable = is_writable($destination);
++    $is_directory = is_dir($destination);
++    if (!$is_writable || !$is_directory) {
++      if (!$is_directory) {
++        $error = t('The directory %directory does not exist.', ['%directory' => $destination]);
++      }
++      else {
++        $error = t('The directory %directory is not writable.', ['%directory' => $destination]);
++      }
++      $description = t('An automated attempt to create this directory failed, possibly due to a permissions problem. To proceed with the installation, either create the directory and modify its permissions manually or ensure that the installer has the permissions to create it automatically. For more information, see INSTALL.txt or the <a href=":handbook_url">online handbook</a>.', [':handbook_url' => 'https://www.drupal.org/server-permissions']);
++      if (!empty($error)) {
++        $description = $error . ' ' . $description;
++        $requirements['media_entity_spotify']['description'] = $description;
++        $requirements['media_entity_spotify']['severity'] = REQUIREMENT_ERROR;
++      }
++    }
++  }
++  return $requirements;
+ }
+diff --git a/src/Plugin/Field/FieldFormatter/SpotifyEmbedFormatter.php b/src/Plugin/Field/FieldFormatter/SpotifyEmbedFormatter.php
+index 175e894..8a71bdb 100644
+--- a/src/Plugin/Field/FieldFormatter/SpotifyEmbedFormatter.php
++++ b/src/Plugin/Field/FieldFormatter/SpotifyEmbedFormatter.php
+@@ -2,13 +2,10 @@
+ 
+ namespace Drupal\media_entity_spotify\Plugin\Field\FieldFormatter;
+ 
+-use Drupal\Core\Annotation\Translation;
+-use Drupal\Core\Field\Annotation\FieldFormatter;
+ use Drupal\Core\Field\FieldItemListInterface;
+ use Drupal\Core\Field\FormatterBase;
+ use Drupal\Core\Form\FormStateInterface;
+-use Drupal\media_entity\MediaTypeInterface;
+-use Drupal\media_entity_spotify\Plugin\MediaEntity\Type\Spotify;
++use Drupal\media_entity_spotify\Plugin\media\Source\Spotify;
+ 
+ /**
+  * Plugin implementation of the 'spotify_embed' formatter.
+@@ -28,18 +25,18 @@ class SpotifyEmbedFormatter extends FormatterBase {
+    */
+   public static function defaultSettings() {
+     return [
+-        'playlist' => [
+-          'theme' => 'dark',
+-          'view' => 'list',
+-          'width' => '300px',
+-          'height' => '380px',
+-        ],
+-        'track' => [
+-          'theme' => 'dark',
+-          'view' => 'list',
+-          'width' => '300px',
+-          'height' => '80px',
+-        ],
++      'playlist' => [
++        'theme' => 'dark',
++        'view' => 'list',
++        'width' => '300px',
++        'height' => '380px',
++      ],
++      'track' => [
++        'theme' => 'dark',
++        'view' => 'list',
++        'width' => '300px',
++        'height' => '80px',
++      ],
+     ] + parent::defaultSettings();
+   }
+ 
+@@ -114,7 +111,7 @@ class SpotifyEmbedFormatter extends FormatterBase {
+       '#ajax' => [
+         'callback' => [$this, 'updateTrackSizeSettings'],
+         'wrapper' => 'track-height-wrapper',
+-      ]
++      ],
+     ];
+ 
+     $elements['track']['width'] = [
+@@ -189,14 +186,14 @@ class SpotifyEmbedFormatter extends FormatterBase {
+    * {@inheritdoc}
+    */
+   public function viewElements(FieldItemListInterface $items, $langcode) {
+-    /** @var \Drupal\media_entity\MediaInterface $media_entity */
+-    $media_entity = $items->getEntity();
++    /** @var \Drupal\media\MediaInterface $media */
++    $media = $items->getEntity();
+ 
+     $element = [];
+-    if (($media_type = $media_entity->getType()) && $media_type instanceof Spotify) {
+-      /** @var MediaTypeInterface $item */
++    if (($media_source = $media->getSource()) && $media_source instanceof Spotify) {
++      /** @var \Drupal\media\MediaTypeInterface $item */
+       foreach ($items as $delta => $item) {
+-        if (($uri = $media_type->getField($media_entity, 'uri')) && ($type = $media_type->getField($media_entity, 'type'))) {
++        if (($uri = $media_source->getMetadata($media, 'uri')) && ($type = $media_source->getMetadata($media, 'type'))) {
+ 
+           // Get settings for this type.
+           $settings = $this->getSetting($type);
+@@ -221,7 +218,7 @@ class SpotifyEmbedFormatter extends FormatterBase {
+    * Returns an array of view types.
+    *
+    * @return array
+-   *  An array of view types.
++   *   An array of view types.
+    */
+   protected function getViewTypes() {
+     return [
+@@ -234,7 +231,7 @@ class SpotifyEmbedFormatter extends FormatterBase {
+    * Returns an array of themes.
+    *
+    * @return array
+-   *  An array of themes.
++   *   An array of themes.
+    */
+   protected function getThemes() {
+     return [
+@@ -242,4 +239,5 @@ class SpotifyEmbedFormatter extends FormatterBase {
+       'white' => $this->t('Light'),
+     ];
+   }
++
+ }
+diff --git a/src/Plugin/MediaEntity/Type/Spotify.php b/src/Plugin/media/Source/Spotify.php
+similarity index 52%
+rename from src/Plugin/MediaEntity/Type/Spotify.php
+rename to src/Plugin/media/Source/Spotify.php
+index 077b3c2..396541b 100644
+--- a/src/Plugin/MediaEntity/Type/Spotify.php
++++ b/src/Plugin/media/Source/Spotify.php
+@@ -1,28 +1,28 @@
+ <?php
+ 
+-namespace Drupal\media_entity_spotify\Plugin\MediaEntity\Type;
++namespace Drupal\media_entity_spotify\Plugin\media\Source;
+ 
+-use Drupal\Core\Annotation\Translation;
+ use Drupal\Core\Config\ConfigFactoryInterface;
+ use Drupal\Core\Entity\EntityFieldManagerInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+-use Drupal\Core\Form\FormStateInterface;
+-use Drupal\media_entity\Annotation\MediaType;
+-use Drupal\media_entity\MediaInterface;
+-use Drupal\media_entity\MediaTypeBase;
++use Drupal\Core\Field\FieldTypePluginManagerInterface;
++use Drupal\media\MediaInterface;
++use Drupal\media\MediaSourceBase;
+ use GuzzleHttp\ClientInterface;
+ use Symfony\Component\DependencyInjection\ContainerInterface;
+ 
+ /**
+  * Provides media type plugin for Spotify.
+  *
+- * @MediaType(
++ * @MediaSource(
+  *   id = "spotify",
+  *   label = @Translation("Spotify"),
+- *   description = @Translation("Provides business logic and metadata for Spotify.")
++ *   description = @Translation("Provides business logic and metadata for Spotify."),
++ *   allowed_field_types = {"link", "string", "string_long"},
++ *   default_thumbnail_filename = "spotify.png",
+  * )
+  */
+-class Spotify extends MediaTypeBase {
++class Spotify extends MediaSourceBase {
+ 
+   /**
+    * @var array
+@@ -30,21 +30,34 @@ class Spotify extends MediaTypeBase {
+   protected $spotify;
+ 
+   /**
+-   * @var \Drupal\Core\Config\ConfigFactoryInterface
+-   */
+-  protected $configFactory;
+-
+-  /**
+-   * @var \GuzzleHttp\ClientInterface
++   * Guzzle client.
++   *
++   * @var \GuzzleHttp\Client
+    */
+   protected $httpClient;
+ 
+   /**
+-   * @inheritDoc
++   * Constructs a new class instance.
++   *
++   * @param array $configuration
++   *   A configuration array containing information about the plugin instance.
++   * @param string $plugin_id
++   *   The plugin_id for the plugin instance.
++   * @param mixed $plugin_definition
++   *   The plugin implementation definition.
++   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
++   *   Entity type manager service.
++   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
++   *   Entity field manager service.
++   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
++   *   Config factory service.
++   * @param \Drupal\Core\Field\FieldTypePluginManagerInterface $field_type_manager
++   *   The field type plugin manager service.
++   * @param \GuzzleHttp\ClientInterface $httpClient
++   *   Guzzle client.
+    */
+-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $configFactory, ClientInterface $httpClient) {
+-    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $entity_field_manager, $configFactory->get('media_entity.settings'));
+-    $this->configFactory = $configFactory;
++  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $config_factory, FieldTypePluginManagerInterface $field_type_manager, ClientInterface $httpClient) {
++    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $entity_field_manager, $field_type_manager, $config_factory);
+     $this->httpClient = $httpClient;
+   }
+ 
+@@ -59,6 +72,7 @@ class Spotify extends MediaTypeBase {
+       $container->get('entity_type.manager'),
+       $container->get('entity_field.manager'),
+       $container->get('config.factory'),
++      $container->get('plugin.manager.field.field_type'),
+       $container->get('http_client')
+     );
+   }
+@@ -66,63 +80,23 @@ class Spotify extends MediaTypeBase {
+   /**
+    * {@inheritdoc}
+    */
+-  public function defaultConfiguration() {
+-    return [
+-      'source_url_field' => '',
+-    ];
+-  }
+-
+-  /**
+-   * {@inheritdoc}
+-   */
+-  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+-    $form = [];
+-
+-    $options = ['' => $this->t('Select')];
+-    $bundle = $form_state->getFormObject()->getEntity();
+-    $allowed_field_types = ['string', 'string_long', 'link'];
+-    foreach ($this->entityFieldManager->getFieldDefinitions('media', $bundle->id()) as $field_name => $field) {
+-      if (in_array($field->getType(), $allowed_field_types) && !$field->getFieldStorageDefinition()->isBaseField()) {
+-        $options[$field_name] = $field->getLabel();
+-      }
+-    }
+-
+-    $disabled = !count($options);
+-    if ($disabled) {
+-      $options = ['' => $this->t('Add fields to the media bundle')];
+-    }
+-
+-    $form['source_url_field'] = [
+-      '#type' => 'select',
+-      '#title' => t('Spotify URL source field'),
+-      '#description' => t('Select the field on the media entity that stores Spotify URL.'),
+-      '#default_value' => isset($this->configuration['source_url_field']) ? $this->configuration['source_url_field'] : '',
+-      '#options' => $options,
+-      '#disabled' => $disabled,
+-    ];
+-
+-    return $form;
+-  }
+-
+-  /**
+-   * {@inheritdoc}
+-   */
+-  public function providedFields() {
++  public function getMetadataAttributes() {
+     return [
+-      'uri' => $this->t('The uri'),
++      'uri' => $this->t('The URI'),
+       'html' => $this->t('HTML embed code'),
+       'thumbnail_uri' => t('URI of the thumbnail'),
+     ];
+   }
+ 
+   /**
+-   * @inheritDoc
++   * {@inheritdoc}
+    */
+-  public function getField(MediaInterface $media, $name) {
++  public function getMetadata(MediaInterface $media, $attribute_name) {
+     if (($url = $this->getMediaUrl($media)) && ($data = $this->oEmbed($url))) {
+-      switch ($name) {
++      switch ($attribute_name) {
+         case 'html':
+           return $data['html'];
++
+         case 'thumbnail_uri':
+           if (isset($data['thumbnail_url'])) {
+             $destination = $this->configFactory->get('media_entity_spotify.settings')->get('thumbnail_destination');
+@@ -138,7 +112,8 @@ class Spotify extends MediaTypeBase {
+               return $local_uri;
+             }
+           }
+-          return FALSE;
++          break;
++
+         case 'uri':
+           // Test for track.
+           preg_match('/^https?:\/\/(?:open|play)\.spotify\.com\/track\/([\w\d]+)$/i', $url, $matches);
+@@ -146,7 +121,7 @@ class Spotify extends MediaTypeBase {
+             return 'spotify:track:' . $matches[1];
+           }
+ 
+-          // Test for playlist
++          // Test for playlist.
+           preg_match('/^https?:\/\/(?:open|play)\.spotify\.com\/user\/([\w\d]+)\/playlist\/([\w\d]+)$/i', $url, $matches);
+           if (count($matches)) {
+             return 'spotify:user:' . $matches[1] . ':playlist:' . $matches[2];
+@@ -157,65 +132,45 @@ class Spotify extends MediaTypeBase {
+           if (count($matches)) {
+             return 'spotify:album:' . $matches[1];
+           }
++          break;
+ 
+-          return FALSE;
+         case 'type':
+-          return preg_match('/^spotify\:(track)/', $this->getField($media, 'uri')) ? 'track' : 'playlist';
++          return preg_match('/^spotify\:(track)/', $this->getMetadata($media, 'uri')) ? 'track' : 'playlist';
+       }
+     }
+ 
+-    return FALSE;
++    // Fallback to the parent's default name if everything else failed.
++    return parent::getMetadata($media, $attribute_name);
+   }
+ 
+   /**
+    * Returns the url from the source_url_field.
+    *
+-   * @param \Drupal\media_entity\MediaInterface $media
+-   *  The media entity.
++   * @param \Drupal\media\MediaInterface $media
++   *   The media entity.
+    *
+    * @return string|bool
+-   *  The track if from the source_url_field if found. False otherwise.
++   *   The track if from the source_url_field if found. False otherwise.
+    */
+   protected function getMediaUrl(MediaInterface $media) {
+-    if (isset($this->configuration['source_url_field'])) {
+-      $source_url_field = $this->configuration['source_url_field'];
+-      if ($media->hasField($source_url_field)) {
+-        if (!empty($media->{$source_url_field}->first())) {
+-          $property_name = $media->{$source_url_field}->first()
+-            ->mainPropertyName();
+-          return $media->{$source_url_field}->{$property_name};
+-        }
+-      }
++    $source_field_name = $media->bundle->entity->getSource()->getSourceFieldDefinition($media->bundle->entity)->getName();
++    if ($media->hasField($source_field_name)) {
++      /** @var \Drupal\Core\Field\FieldItemInterface $item */
++      $item = $media->get($source_field_name)->first();
++      $property_name = $item->mainPropertyName();
++      return $item->{$property_name};
+     }
+     return FALSE;
+   }
+ 
+   /**
+-   * {@inheritdoc}
+-   */
+-  public function thumbnail(MediaInterface $media) {
+-    if ($thumbnail_image = $this->getField($media, 'thumbnail_uri')) {
+-      return $thumbnail_image;
+-    }
+-
+-    return $this->getDefaultThumbnail();
+-  }
+-
+-  /**
+-   * {@inheritdoc}
+-   */
+-  public function getDefaultThumbnail() {
+-    return $this->config->get('icon_base') . '/spotify.png';
+-  }
+-
+-  /**
+    * Returns oembed data for a Spotify url.
+    *
+    * @param string $url
+    *   The Spotify Url.
+    *
+    * @return array
+-   *  An array of oembed data.
++   *   An array of oembed data.
+    */
+   protected function oEmbed($url) {
+     $this->spotify = &drupal_static(__FUNCTION__);
+@@ -228,4 +183,5 @@ class Spotify extends MediaTypeBase {
+ 
+     return $this->spotify;
+   }
++
+ }
+diff --git a/src/Tests/SpotifyEmbedFormatterTest.php b/src/Tests/SpotifyEmbedFormatterTest.php
+deleted file mode 100644
+index 953f64a..0000000
+--- a/src/Tests/SpotifyEmbedFormatterTest.php
++++ /dev/null
+@@ -1,167 +0,0 @@
+-<?php
+-
+-namespace Drupal\media_entity_spotify\Tests;
+-
+-use Drupal\media_entity\Tests\MediaTestTrait;
+-use Drupal\simpletest\WebTestBase;
+-
+-/**
+- * Tests for Spotify embed formatter.
+- *
+- * @group media_entity_spotify
+- */
+-class SpotifyEmbedFormatterTest extends WebTestBase {
+-
+-  use MediaTestTrait;
+-
+-  /**
+-   * Modules to enable.
+-   *
+-   * @var array
+-   */
+-  public static $modules = array(
+-    'media_entity_spotify',
+-    'media_entity',
+-    'node',
+-    'field_ui',
+-    'views_ui',
+-    'block',
+-    'link',
+-  );
+-
+-  /**
+-   * The test user.
+-   *
+-   * @var \Drupal\User\UserInterface
+-   */
+-  protected $adminUser;
+-
+-  /**
+-   * The test media bundle.
+-   *
+-   * @var \Drupal\media_entity\MediaBundleInterface
+-   */
+-  protected $bundle;
+-
+-  /**
+-   * @inheritDoc
+-   */
+-  protected function setUp() {
+-    parent::setUp();
+-
+-    // Create a test spotify media bundle.
+-    $bundle['bundle'] = 'spotify';
+-    $this->bundle = $this->drupalCreateMediaBundle($bundle, 'spotify');
+-
+-    // Create an admin user with permissions to administer and create media.
+-    $this->adminUser = $this->drupalCreateUser([
+-      'administer media',
+-      'administer media bundles',
+-      'administer media fields',
+-      'administer media form display',
+-      'administer media display',
+-      // Media entity permissions.
+-      'view media',
+-      'create media',
+-      'update media',
+-      'update any media',
+-      'delete media',
+-      'delete any media',
+-      // Other permissions.
+-      'administer views',
+-    ]);
+-
+-    // Login the user.
+-    $this->drupalLogin($this->adminUser);
+-  }
+-
+-  /**
+-   * Tests adding and editing a spotify embed formatter.
+-   */
+-  public function testSpotifyEmbedFormatter() {
+-    // Assert that the media bundle has the expected values before proceeding.
+-    $this->drupalGet('admin/structure/media/manage/' . $this->bundle->id());
+-    $this->assertFieldByName('label', $this->bundle->label());
+-    $this->assertFieldByName('type', 'spotify');
+-
+-    // Add a Url field to the bundle.
+-    $this->drupalGet('admin/structure/media/manage/' . $this->bundle->id() . '/fields/add-field');
+-    $config = [
+-      'new_storage_type' => 'link',
+-      'label' => 'Url',
+-      'field_name' => 'media_url',
+-    ];
+-    $this->drupalPostForm(NULL, $config, t('Save and continue'));
+-
+-    // Check that the settings has been saved.
+-    $this->assertText('These settings apply to the ' . $config['label'] . ' field everywhere it is used.');
+-
+-    // Set the field instance settings.
+-    $edit = [
+-      'cardinality' => 'number',
+-      'cardinality_number' => '1',
+-    ];
+-    $this->drupalPostForm(NULL, $edit, t('Save field settings'));
+-    $this->assertText('Updated field ' . $config['label'] . ' field settings.');
+-
+-    $edit = [
+-      'settings[link_type]' => 16,
+-      'settings[title]' => 0,
+-    ];
+-    $this->drupalPostForm(NULL, $edit, t('Save settings'));
+-
+-    // Check if the field has been saved successfully.
+-    $this->assertText('Saved ' . $config['label'] . ' configuration.');
+-    $this->assertText('field_media_url');
+-
+-    // Set the field_media_url format to spotify_embed.
+-    $this->drupalGet('admin/structure/media/manage/' . $this->bundle->id() . '/display');
+-    $edit = [
+-      'fields[field_media_url][label]' => 'above',
+-      'fields[field_media_url][type]' => 'spotify_embed',
+-    ];
+-    $this->drupalPostForm(NULL, $edit, t('Save'));
+-    $this->assertText('Your settings have been saved.');
+-
+-    // Set the source_url_field.
+-    $this->drupalGet('admin/structure/media/manage/' . $this->bundle->id());
+-    $edit = [
+-      'type_configuration[spotify][source_url_field]' => 'field_media_url'
+-    ];
+-    $this->drupalPostForm(NULL, $edit, t('Save media bundle'));
+-
+-    // Test Spotify urls.
+-    foreach ($this->getSpotifyUrls() as $type => $url) {
+-      // Create a spotify media entity.
+-      $this->drupalGet('media/add/' . $this->bundle->id());
+-
+-      // Asset that the field_media_url is found.
+-      $this->assertFieldByName('field_media_url[0][uri]');
+-
+-      $edit = [
+-        'name[0][value]' => $type,
+-        'field_media_url[0][uri]' => $url,
+-      ];
+-      $this->drupalPostForm(NULL, $edit, t('Save and publish'));
+-
+-      // Asset that spotify entity has been created.
+-      $this->assertText('Url');
+-
+-      // Assert that the formatter exists on this page.
+-      $this->assertFieldByXPath('//iframe');
+-    }
+-  }
+-
+-  /**
+-   * Returns an array of spotify urls.
+-   *
+-   * @return array
+-   */
+-  protected function getSpotifyUrls() {
+-    return [
+-      'track' => 'https://open.spotify.com/track/298gs9ATwr2rD9tGYJKlQR',
+-      'album' => 'https://play.spotify.com/album/2ODvWsOgouMbaA5xf0RkJe',
+-      'playlist' => 'https://open.spotify.com/user/spotify/playlist/3rgsDhGHZxZ9sB9DQWQfuf',
+-    ];
+-  }
+-}
+diff --git a/tests/src/Functional/SpotifyEmbedFormatterTest.php b/tests/src/Functional/SpotifyEmbedFormatterTest.php
+new file mode 100644
+index 0000000..9fbb3dc
+--- /dev/null
++++ b/tests/src/Functional/SpotifyEmbedFormatterTest.php
+@@ -0,0 +1,97 @@
++<?php
++
++namespace Drupal\Tests\media_entity_spotify\Functional;
++
++use Drupal\Tests\BrowserTestBase;
++use Drupal\Tests\media\Functional\MediaFunctionalTestCreateMediaTypeTrait;
++use Drupal\Tests\media\Functional\MediaFunctionalTestTrait;
++
++/**
++ * Tests for Spotify embed formatter.
++ *
++ * @group media_entity_spotify
++ */
++class SpotifyEmbedFormatterTest extends BrowserTestBase {
++
++  use MediaFunctionalTestTrait;
++  use MediaFunctionalTestCreateMediaTypeTrait;
++
++  /**
++   * {@inheritdoc}
++   */
++  public static $modules = array(
++    'media_entity_spotify',
++    'media',
++    'node',
++    'field_ui',
++    'views_ui',
++    'block',
++    'link',
++  );
++
++  /**
++   * Tests adding and editing a spotify embed formatter.
++   */
++  public function testSpotifyEmbedFormatter() {
++    $assert = $this->assertSession();
++
++    // Create a test spotify media bundle.
++    $media_type = $this->createMediaType(['bundle' => 'spotify'], 'spotify');
++
++    entity_get_form_display('media', $media_type->id(), 'default')
++      ->setComponent('field_media_spotify', [
++        'type' => 'link_default',
++      ])
++      ->save();
++
++    // Assert that the media bundle has the expected values before proceeding.
++    $this->drupalGet('admin/structure/media/manage/' . $media_type->id());
++    $assert->fieldValueEquals('label', $media_type->label());
++    $assert->fieldValueEquals('source', 'spotify');
++
++    // Set the field_media_spotify format to spotify_embed.
++    $this->drupalGet('admin/structure/media/manage/' . $media_type->id() . '/display');
++    $edit = [
++      'fields[field_media_spotify][label]' => 'above',
++      'fields[field_media_spotify][type]' => 'spotify_embed',
++      'fields[field_media_spotify][region]' => 'content',
++    ];
++    $this->drupalPostForm(NULL, $edit, t('Save'));
++    $assert->pageTextContains('Your settings have been saved.');
++
++    // Test Spotify urls.
++    foreach ($this->getSpotifyUrls() as $type => $url) {
++      // Create a spotify media entity.
++      $this->drupalGet('media/add/' . $media_type->id());
++
++      // Asset that the field_media_url is found.
++      $assert->fieldExists('field_media_spotify[0][uri]');
++
++      $edit = [
++        'name[0][value]' => $type,
++        'field_media_spotify[0][uri]' => $url,
++      ];
++      $this->drupalPostForm(NULL, $edit, t('Save'));
++
++      // Asset that spotify entity has been created.
++      $assert->pageTextContains('Url');
++
++      // Assert that the formatter exists on this page.
++      $assert->elementExists('css', 'iframe');
++    }
++  }
++
++  /**
++   * Returns an array of spotify urls.
++   *
++   * @return array
++   */
++  protected function getSpotifyUrls() {
++    return [
++      'track' => 'https://open.spotify.com/track/298gs9ATwr2rD9tGYJKlQR',
++      'album' => 'https://play.spotify.com/album/2ODvWsOgouMbaA5xf0RkJe',
++      'playlist' => 'https://open.spotify.com/user/spotify/playlist/3rgsDhGHZxZ9sB9DQWQfuf',
++    ];
++  }
++
++}

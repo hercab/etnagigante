@@ -100,6 +100,9 @@
         "patches": {
            "drupal/page_manager": {
            "Page Manager fix page_variant": "https://www.drupal.org/files/issues/2876880-page-varient-cache-2.patch"
+           },
+           "drupal/media_entity_spotify": {
+               "Create a port of media_entity_spotify compatible with media in core API": "https://www.drupal.org/files/issues/2912612-spotify-2x-10.patch"
            }
          }
     }
